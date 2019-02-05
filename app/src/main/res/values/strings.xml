@@ -3,4 +3,6 @@
     <string name="add_button">Add</string>
     <string name="enter_name">Name</string>
     <string name="finish_button">Finish</string>
+    <string name="item_name">Item Name</string>
+    <string name="price">Item Price</string>
 </resources>
