@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListBillActivity"></activity>
+        <activity android:name=".BuyerSelectActivity"></activity>
     </application>
 
 </manifest>

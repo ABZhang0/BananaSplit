@@ -1,6 +1,8 @@
 package com.example.billsplitapp;
 
-public class PurchaseItem {
+import java.io.Serializable;
+
+public class PurchaseItem implements Serializable {
     private String name;
     private Double price;
 

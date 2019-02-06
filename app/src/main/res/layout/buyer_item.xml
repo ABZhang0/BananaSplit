@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="125dp"
     android:layout_margin="2dp"
-    app:cardBackgroundColor="@color/colorPrimary"
-    app:cardCornerRadius="8dp"
-    app:contentPadding="4dp">
+    app:cardBackgroundColor="@color/cardViewPink">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/ConstraintLayout"

@@ -57,7 +57,10 @@ public class ListBillActivity extends AppCompatActivity {
 
     public void onFinish (View view) {
         if (!purchaseItems.isEmpty()) {
-            //start calculating bill split in next activity
+            Intent intent = new Intent(this, BuyerSelectActivity.class);
+            intent.putExtra("buyers", buyers);
+            intent.putExtra("purchases", purchaseItems);
+            startActivity(intent);
         }
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    app:cardBackgroundColor="@color/cardview_dark_background">
+    app:cardBackgroundColor="@android:color/holo_blue_light">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
-            android:gravity="right"
+            android:gravity="end"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView3"

@@ -62,7 +62,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         PurchaseItem purchaseItem = purchaseItems.get(i);
         myViewHolder.textView3.setText(purchaseItem.getName());
-        myViewHolder.textView4.setText(String.valueOf(purchaseItem.price()));
+        myViewHolder.textView4.setText(String.format("$%.2f", purchaseItem.price()));
     }
 
     @Override
