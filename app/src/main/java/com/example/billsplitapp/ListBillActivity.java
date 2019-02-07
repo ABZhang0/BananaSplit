@@ -55,7 +55,7 @@ public class ListBillActivity extends AppCompatActivity {
         hideSoftKeyboard(this);
     }
 
-    public void onFinish (View view) {
+    public void onFinishListBill (View view) {
         if (!purchaseItems.isEmpty()) {
             Intent intent = new Intent(this, BuyerSelectActivity.class);
             intent.putExtra("buyers", buyers);

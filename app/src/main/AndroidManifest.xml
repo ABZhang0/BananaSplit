@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ListBillActivity"></activity>
         <activity android:name=".BuyerSelectActivity"></activity>
+        <activity android:name=".FinalBillActivity"></activity>
     </application>
 
 </manifest>

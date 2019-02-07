@@ -65,7 +65,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         Buyer buyer = buyers.get(i);
         myViewHolder.imageView.setImageResource(buyer.getPortrait());
         myViewHolder.textView.setText(buyer.getName());
-        myViewHolder.textView2.setText(String.valueOf(buyer.getBill()));
+        myViewHolder.textView2.setText(String.format("$%.2f", buyer.getBill()));
     }
 
     @Override

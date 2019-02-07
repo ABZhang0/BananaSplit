@@ -61,13 +61,16 @@ public class BuyerSelectActivity extends AppCompatActivity {
                 displayPrice.setText(String.format("$%.2f", pItem.price()));
                 pIndex++;
             } else {
-                onFinish();
+                onFinishBuyerSelect();
             }
         }
     }
 
-    public void onFinish() {
+    public void onFinishBuyerSelect() {
         //next activity (probably final numbers)
+        Intent intent = new Intent(this, FinalBillActivity.class);
+        intent.putExtra("buyers", buyers);
+        startActivity(intent);
     }
 
     public void buildRecyclerView() {
