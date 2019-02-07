@@ -19,6 +19,10 @@ public class Buyer implements Serializable {
         bill += amount;
     }
 
+    public void subFromBill(Double amount) {
+        bill -= amount;
+    }
+
     public Double getBill() {
         return bill;
     }
@@ -31,8 +35,12 @@ public class Buyer implements Serializable {
         return portrait;
     }
 
-    public void setSelected() {
-        selected = !selected;
+    public void select() {
+        selected = true;
+    }
+
+    public void deselect() {
+        selected = false;
     }
 
     public boolean isSelected() {

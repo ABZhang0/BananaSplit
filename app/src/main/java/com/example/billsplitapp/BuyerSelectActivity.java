@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class BuyerSelectActivity extends AppCompatActivity {
 
@@ -19,6 +20,8 @@ public class BuyerSelectActivity extends AppCompatActivity {
     private ArrayList<PurchaseItem> purchaseItems;
     private static ArrayList<Buyer> buyers;
     private ArrayList<Buyer> selectedBuyers;
+    private Stack<ArrayList<Buyer>> buyerHistory;
+    private Stack<PurchaseItem> pItemHistory;
 
     private TextView displayName;
     private TextView displayPrice;
@@ -39,6 +42,8 @@ public class BuyerSelectActivity extends AppCompatActivity {
         displayName = findViewById(R.id.textView5);
         displayPrice = findViewById(R.id.textView6);
         selectedBuyers = new ArrayList<>();
+        buyerHistory = new Stack<>();
+        pItemHistory = new Stack<>();
         buildRecyclerView();
 
         displayName.setText(purchaseItems.get(0).getName());
@@ -46,13 +51,35 @@ public class BuyerSelectActivity extends AppCompatActivity {
         pIndex = 1;
     }
 
+    public void prevPurchaseItem(View view) {
+        if (pIndex > 1) {
+            ArrayList<Buyer> lastBuyers = buyerHistory.pop();
+            PurchaseItem display = pItemHistory.pop();
+            for (Buyer b : lastBuyers) {
+                b.subFromBill(display.price()/lastBuyers.size());
+                b.deselect();
+                rvAdapter.notifyDataSetChanged();
+            }
+            displayName.setText(display.getName());
+            displayPrice.setText(String.format("$%.2f", display.price()));
+            selectedBuyers.clear(); //should fix the uneven split bug
+            pIndex--;
+        }
+    }
+
     public void nextPurchaseItem(View view) {
         if (selectedBuyers.size() > 0 && pIndex <= purchaseItems.size()) {
             for (Buyer b : selectedBuyers) {
                 b.addToBill(purchaseItems.get(pIndex-1).price()/selectedBuyers.size()); //split the bill
-                b.setSelected();
+                b.deselect();
                 rvAdapter.notifyDataSetChanged();
             }
+            pItemHistory.push(purchaseItems.get(pIndex-1));
+            ArrayList<Buyer> copy = new ArrayList<>();
+            for (Buyer b : selectedBuyers) {
+                copy.add(b);
+            }
+            buyerHistory.push(copy);
             selectedBuyers.clear();
 
             if (pIndex < purchaseItems.size()) {
@@ -86,10 +113,11 @@ public class BuyerSelectActivity extends AppCompatActivity {
                 Buyer buyer = buyers.get(position);
                 if (!buyer.isSelected()) {
                     selectedBuyers.add(buyer); // do not add to list if deselection
+                    buyer.select();
                 } else {
                     selectedBuyers.remove(buyer);
+                    buyer.deselect();
                 }
-                buyer.setSelected();
                 rvAdapter.notifyDataSetChanged();
             }
         });
