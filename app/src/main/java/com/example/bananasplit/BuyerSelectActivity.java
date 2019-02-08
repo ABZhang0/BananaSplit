@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -26,11 +27,15 @@ public class BuyerSelectActivity extends AppCompatActivity {
     private TextView displayName;
     private TextView displayPrice;
     private int pIndex;
+    private boolean isComplete;
+
+    Button nextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buyer_select);
+        nextButton = (Button) findViewById(R.id.button5);
 
         try {
             buyers = (ArrayList<Buyer>) getIntent().getSerializableExtra("buyers");
@@ -49,6 +54,7 @@ public class BuyerSelectActivity extends AppCompatActivity {
         displayName.setText(purchaseItems.get(0).getName());
         displayPrice.setText(String.format("$%.2f", purchaseItems.get(0).price()));
         pIndex = 1;
+        isComplete = false;
     }
 
     public void prevPurchaseItem(View view) {
@@ -64,11 +70,18 @@ public class BuyerSelectActivity extends AppCompatActivity {
             displayPrice.setText(String.format("$%.2f", display.price()));
             selectedBuyers.clear(); //should fix the uneven split bug
             pIndex--;
+
+            if (isComplete) {
+                isComplete = false;
+                nextButton.setText(R.string.next_button);
+            }
         }
     }
 
     public void nextPurchaseItem(View view) {
-        if (selectedBuyers.size() > 0 && pIndex <= purchaseItems.size()) {
+        if (isComplete) {
+            onFinishBuyerSelect();
+        } else if (selectedBuyers.size() > 0 && pIndex <= purchaseItems.size()) {
             for (Buyer b : selectedBuyers) {
                 b.addToBill(purchaseItems.get(pIndex-1).price()/selectedBuyers.size()); //split the bill
                 b.deselect();
@@ -86,10 +99,13 @@ public class BuyerSelectActivity extends AppCompatActivity {
                 PurchaseItem pItem = purchaseItems.get(pIndex);
                 displayName.setText(pItem.getName());
                 displayPrice.setText(String.format("$%.2f", pItem.price()));
-                pIndex++;
             } else {
-                onFinishBuyerSelect();
+                isComplete = true;
+                nextButton.setText(R.string.done_button);
+                displayName.setText(null);
+                displayPrice.setText(null);
             }
+            pIndex++;
         }
     }
 
@@ -110,15 +126,17 @@ public class BuyerSelectActivity extends AppCompatActivity {
         rvAdapter.setOnItemClickListener(new BuyerSelectAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Buyer buyer = buyers.get(position);
-                if (!buyer.isSelected()) {
-                    selectedBuyers.add(buyer); // do not add to list if deselection
-                    buyer.select();
-                } else {
-                    selectedBuyers.remove(buyer);
-                    buyer.deselect();
+                if (!isComplete) {
+                    Buyer buyer = buyers.get(position);
+                    if (!buyer.isSelected()) {
+                        selectedBuyers.add(buyer); // do not add to list if deselection
+                        buyer.select();
+                    } else {
+                        selectedBuyers.remove(buyer);
+                        buyer.deselect();
+                    }
+                    rvAdapter.notifyDataSetChanged();
                 }
-                rvAdapter.notifyDataSetChanged();
             }
         });
     }

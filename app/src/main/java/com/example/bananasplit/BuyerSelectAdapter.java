@@ -27,14 +27,14 @@ public class BuyerSelectAdapter extends RecyclerView.Adapter<BuyerSelectAdapter.
         public ImageView imageView;
         public TextView textView;
         public TextView textView2;
-        // public ImageView deleteImage;
+        public ImageView deleteImage;
 
         public MyViewHolder(View view, final BuyerSelectAdapter.OnItemClickListener listener) {
             super(view);
             imageView = view.findViewById(R.id.imageView);
             textView = view.findViewById(R.id.textView);
             textView2 = view.findViewById(R.id.textView2);
-            // deleteImage = view.findViewById(R.id.imageView2);
+            deleteImage = view.findViewById(R.id.imageView2);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,6 +67,7 @@ public class BuyerSelectAdapter extends RecyclerView.Adapter<BuyerSelectAdapter.
         myViewHolder.imageView.setImageResource(buyer.getPortrait());
         myViewHolder.textView.setText(buyer.getName());
         myViewHolder.textView2.setText(String.format("$%.2f", buyer.getBill()));
+        myViewHolder.deleteImage.setImageResource(android.R.color.transparent); // ignoring the delete function from main
 
         if (buyer.isSelected()) {
             myViewHolder.itemView.setBackgroundColor(Color.parseColor("#ff6699"));

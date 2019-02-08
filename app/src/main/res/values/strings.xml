@@ -8,4 +8,5 @@
     <string name="next_button">Next</string>
     <string name="prev_button">Prev</string>
     <string name="final_bill">Final Bill</string>
+    <string name="done_button">Done</string>
 </resources>

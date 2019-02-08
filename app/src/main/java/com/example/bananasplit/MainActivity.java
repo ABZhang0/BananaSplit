@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onFinish (View view) {
-        if (!buyers.isEmpty()) {
+        if (buyers.size() > 1) {
             Intent intent = new Intent(this, ListBillActivity.class);
             intent.putExtra("buyers", buyers);
             startActivity(intent);
