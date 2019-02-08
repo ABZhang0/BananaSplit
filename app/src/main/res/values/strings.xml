@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bill Split App</string>
+    <string name="app_name">BananaSplit</string>
     <string name="add_button">Add</string>
     <string name="enter_name">Name</string>
     <string name="finish_button">Finish</string>

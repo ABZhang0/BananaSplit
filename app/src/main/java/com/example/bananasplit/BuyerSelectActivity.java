@@ -1,4 +1,4 @@
-package com.example.billsplitapp;
+package com.example.bananasplit;
 
 import android.content.Intent;
 import android.os.Bundle;

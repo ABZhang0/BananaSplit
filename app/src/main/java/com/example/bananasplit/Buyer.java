@@ -1,4 +1,4 @@
-package com.example.billsplitapp;
+package com.example.bananasplit;
 
 import java.io.Serializable;
 
